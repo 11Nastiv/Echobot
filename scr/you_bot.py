@@ -15,16 +15,15 @@ dp = Dispatcher(bot)
 
 @dp.message_handler(commands=['start'])
 async def process_start_command(message: types.Message):
-    await message.reply("Привет!\nНапиши мне что-нибудь!")
+    await message.reply("Привет!\nНапишите мне что-нибудь!")
 
 @dp.message_handler(commands=['help'])
 async def process_help_command(message: types.Message):
-    await message.reply("Напиши мне что-нибудь, и я отправлю этот текст тебе в ответ!")
+    await message.reply("Напишите мне что-нибудь, и я отправлю этот текст Вам в ответ!")
 
 @dp.message_handler()
 async def echo_message(msg: types.Message):
     await bot.send_message(msg.from_user.id, msg.text)
-
 
 @dp.inline_handler()
 async def inline_handler(query : types.InlineQuery):
