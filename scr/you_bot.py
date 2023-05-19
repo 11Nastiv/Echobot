@@ -7,8 +7,7 @@ import hashlib
 from config import TOKEN
 
 def searcher(text):
-    res = YoutubeSearch(text, max_results=10).to_dict()
-    return res
+    return f"{YoutubeSearch(text, max_results=10).to_dict()}"
 
 bot = Bot(token=TOKEN)
 dp = Dispatcher(bot)
@@ -33,12 +32,12 @@ async def inline_handler(query : types.InlineQuery):
     articles = [types.InlineQueryResultArticle(
         id = hashlib.md5(f'{link["id"]}'.encode()).hexdigest(),
         title = f'{link["title"]}',
-        url = f'https://www.youtube.com/watch?v={link["id"]}',
+        url = f'{website} {link["id"]}',
         thumb_url = f'{link["thumbnails"][0]}',
         input_message_content=types.InputTextMessageContent(
-            message_text=f'https://www.youtube.com/watch?v={link["id"]}')
+            message_text=f'{website} {link["id"]}')
     ) for link in links]
-
+    website = "https://www.youtube.com/watch?v="
     await query.answer(articles, cache_time=60, is_personal=True)
 
 executor.start_polling(dp, skip_updates=True)
